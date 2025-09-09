@@ -1,3 +1,14 @@
+/node_modules
+
+.env
+
+.vscode
+.DS_Store
+.idea
+
+# pull requests list
+pullrequests-list.txt
+
 # Logs
 logs
 *.log
