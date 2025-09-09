@@ -9,10 +9,11 @@ const CarPage = lazy(() => import("../../pages/CarPage/CarPage"));
 const NotFoundPage = lazy(() =>
   import("../../pages/NotFoundPage/NotFoundPage")
 );
+import css from "./App.module.css";
 
 function App() {
   return (
-    <div>
+    <div className={css.appContainer}>
       <Header />
       <div>
         <Suspense fallback={<Loader />}>
