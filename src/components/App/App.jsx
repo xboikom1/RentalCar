@@ -13,9 +13,9 @@ const NotFoundPage = lazy(() =>
 
 function App() {
   return (
-    <div className={css.appContainer}>
+    <>
       <Header />
-      <div>
+      <div className={css.appContainer}>
         <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -25,7 +25,7 @@ function App() {
           </Routes>
         </Suspense>
       </div>
-    </div>
+    </>
   );
 }
 

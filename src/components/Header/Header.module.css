@@ -1,0 +1,41 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--badges);
+    background-color: var(--badges);
+    padding: 0 120px;
+}
+
+.logo {
+    width: 104px;
+    height: 20px;
+    padding: 26px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+.link {
+    font-size: 16px;
+    line-height: 125%;
+    text-align: center;
+    text-decoration: none;
+    transition: color 0.3s;
+    padding: 28px 0;
+}
+
+.link:hover,
+.link:focus {
+    color: var(--button-hover);
+}
+
+.link.active {
+    color: var(--button-hover);
+}
