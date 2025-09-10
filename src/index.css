@@ -40,6 +40,10 @@ a {
   text-decoration: none;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 :root {
   --main: #101828;
   --gray: #8d929a;
