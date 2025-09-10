@@ -1,0 +1,57 @@
+.hero {
+    height: calc(100vh - 77px);
+    background-image: image-set(url('/images/hero-car.webp') 1x,
+            url('/images/hero-car@2x.webp') 2x);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    margin: auto auto 60px;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 60px;
+    line-height: 120%;
+    text-align: center;
+    color: white;
+    margin-bottom: 16px;
+}
+
+.description {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 133%;
+    text-align: center;
+    color: var(--white);
+    margin-bottom: 40px;
+}
+
+.ctaButton {
+    border-radius: 12px;
+    padding: 12px 99px;
+    min-width: 276px;
+    color: white;
+    border: none;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 125%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: var(--button);
+}
+
+.ctaButton:hover {
+    background-color: #0056b3;
+}
