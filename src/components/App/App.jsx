@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Header from "../Header/Header";
 import Loader from "../Loader/Loader";
+import css from "./App.module.css";
 
 const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
 const CatalogPage = lazy(() => import("../../pages/CatalogPage/CatalogPage"));
@@ -9,13 +10,12 @@ const CarPage = lazy(() => import("../../pages/CarPage/CarPage"));
 const NotFoundPage = lazy(() =>
   import("../../pages/NotFoundPage/NotFoundPage")
 );
-import css from "./App.module.css";
 
 function App() {
   return (
-    <div className={css.appContainer}>
+    <>
       <Header />
-      <div>
+      <div className={css.appContainer}>
         <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -25,7 +25,7 @@ function App() {
           </Routes>
         </Suspense>
       </div>
-    </div>
+    </>
   );
 }
 
