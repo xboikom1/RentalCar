@@ -1,7 +1,8 @@
 .filtersContainer {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 16px;
     margin: 84px auto 0;
     padding: 0 138px;
     width: 100%;
