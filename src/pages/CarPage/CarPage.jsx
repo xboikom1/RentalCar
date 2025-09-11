@@ -53,7 +53,7 @@ const CarPage = () => {
       </div>
 
       <div className={css.carInfo}>
-        <div className={css.headerContainer}>
+        <div>
           <div className={css.header}>
             <h1 className={css.title}>
               {car.brand} {car.model}, {car.year}
@@ -62,8 +62,8 @@ const CarPage = () => {
               <svg className={css.locationIcon}>
                 <use href="/icons.svg#icon-location" />
               </svg>
-              <p>
-                {car.address.split(", ").slice(-2).join(" | ")}
+              <p>{car.address.split(", ").slice(-2).join(", ")} </p>
+              <p className={css.mileage}>
                 Mileage: {formatMileage(car.mileage)} km
               </p>
             </div>
@@ -72,23 +72,49 @@ const CarPage = () => {
           <p className={css.description}>{car.description}</p>
         </div>
 
-        <div className={css.mainInfoContainer}>
+        <div className={css.descriptionSections}>
           <div className={css.section}>
             <h3 className={css.sectionTitle}>Rental Conditions:</h3>
-            <div className={css.conditions}>
-              <div className={css.condition}>Minimum age: 25</div>
-              <div className={css.condition}>Security deposit required</div>
-              <div className={css.condition}>Valid driver's license</div>
+            <div className={css.additionalInfoContainer}>
+              {car.rentalConditions.map((condition, index) => (
+                <p key={index} className={css.addInfo}>
+                  <svg className={css.icon}>
+                    <use href="/icons.svg#icon-check-circle"></use>
+                  </svg>
+                  {condition}
+                </p>
+              ))}
             </div>
           </div>
 
           <div className={css.section}>
             <h3 className={css.sectionTitle}>Car Specifications:</h3>
-            <div className={css.specifications}>
-              <div className={css.spec}>Year: {car.year}</div>
-              <div className={css.spec}>Type: {car.type}</div>
-              <div className={css.spec}>Fuel Consumption: 10.5</div>
-              <div className={css.spec}>Engine Size: 3.6L V6</div>
+            <div className={css.additionalInfoContainer}>
+              <p className={css.addInfo}>
+                <svg className={css.icon}>
+                  <use href="/icons.svg#icon-calendar" />
+                </svg>
+                Year: {car.year}
+              </p>
+              <p className={css.addInfo}>
+                <svg className={css.icon}>
+                  <use href="/icons.svg#icon-car" />
+                </svg>
+                Type: {car.type}
+              </p>
+
+              <p className={css.addInfo}>
+                <svg className={css.icon}>
+                  <use href="/icons.svg#icon-fuel-pump" />
+                </svg>
+                Fuel Consumption: 10.5
+              </p>
+              <p className={css.addInfo}>
+                <svg className={css.icon}>
+                  <use href="/icons.svg#icon-gear" />
+                </svg>
+                Engine Size: 3.6L V6
+              </p>
             </div>
           </div>
 
@@ -96,13 +122,23 @@ const CarPage = () => {
             <h3 className={css.sectionTitle}>
               Accessories and functionalities:
             </h3>
-            <div className={css.accessories}>
-              <div className={css.accessory}>Leather seats</div>
-              <div className={css.accessory}>Panoramic sunroof</div>
-              <div className={css.accessory}>Remote start</div>
-              <div className={css.accessory}>Blind spot monitoring</div>
-              <div className={css.accessory}>Power liftgate</div>
-              <div className={css.accessory}>Premium audio system</div>
+            <div className={css.additionalInfoContainer}>
+              {car.accessories.map((accessory, index) => (
+                <p key={index} className={css.addInfo}>
+                  <svg className={css.icon}>
+                    <use href="/icons.svg#icon-check-circle"></use>
+                  </svg>
+                  {accessory}
+                </p>
+              ))}
+              {car.functionalities.map((func, index) => (
+                <p key={index} className={css.addInfo}>
+                  <svg className={css.icon}>
+                    <use href="/icons.svg#icon-check-circle"></use>
+                  </svg>
+                  {func}
+                </p>
+              ))}
             </div>
           </div>
         </div>
