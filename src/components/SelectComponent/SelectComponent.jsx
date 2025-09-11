@@ -15,7 +15,7 @@ const SelectComponent = ({ options, placeholder }) => {
     }),
     valueContainer: (provided) => ({
       ...provided,
-      padding: "12px 16px",
+      padding: "8px 16px",
     }),
     placeholder: (provided) => ({
       ...provided,

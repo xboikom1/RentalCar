@@ -4,11 +4,11 @@ import { fetchBrands } from "./operations";
 const slice = createSlice({
   name: "brands",
   initialState: {
-    brands: [],
+    items: [],
   },
   extraReducers: (builder) => {
     builder.addCase(fetchBrands.fulfilled, (state, action) => {
-      state.brands = action.payload;
+      state.items = action.payload;
     });
   },
 });
