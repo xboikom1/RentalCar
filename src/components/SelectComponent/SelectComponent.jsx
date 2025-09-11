@@ -1,8 +1,8 @@
 import Select from "react-select";
 
-const SelectComponent = ({ options, placeholder }) => {
+const SelectComponent = ({ options, placeholder, value, onChange }) => {
   const customStyles = {
-    control: (provided) => ({
+    control: (provided, state) => ({
       ...provided,
       border: "1px solid var(--inputs)",
       borderRadius: "12px",
@@ -12,6 +12,10 @@ const SelectComponent = ({ options, placeholder }) => {
       minWidth: "204px",
       boxSizing: "border-box",
       height: "44px",
+      borderColor:
+        state.isFocused || state.isHovered
+          ? "#3470ff !important"
+          : "var(--inputs)",
     }),
     valueContainer: (provided) => ({
       ...provided,
@@ -103,8 +107,11 @@ const SelectComponent = ({ options, placeholder }) => {
     <Select
       options={options}
       placeholder={placeholder}
+      value={value}
+      onChange={onChange}
       styles={customStyles}
       components={{ DropdownIndicator }}
+      isClearable
     />
   );
 };

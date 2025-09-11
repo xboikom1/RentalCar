@@ -5,7 +5,7 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/catalog");
+    navigate("/cars");
   };
 
   return (

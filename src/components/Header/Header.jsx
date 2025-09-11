@@ -21,7 +21,7 @@ const Header = () => {
           Home
         </NavLink>
         <NavLink
-          to="/catalog"
+          to="/cars"
           className={({ isActive }) =>
             clsx(css.link, { [css.active]: isActive })
           }
