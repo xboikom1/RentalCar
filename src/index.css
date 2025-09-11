@@ -3,9 +3,6 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-}
-
-html {
   scroll-behavior: smooth;
 }
 
@@ -13,6 +10,7 @@ body {
   font-family: "Manrope", sans-serif;
   background: #fff;
   margin-right: calc(-1 * (100vw - 100%));
+  overflow-x: hidden;
 }
 
 h1,
