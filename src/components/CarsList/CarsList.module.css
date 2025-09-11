@@ -1,0 +1,24 @@
+.carsList {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 48px 32px;
+    margin: 56px auto 80px;
+}
+
+@media (max-width: 1200px) {
+    .carsList {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .carsList {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .carsList {
+        grid-template-columns: 1fr;
+    }
+}
