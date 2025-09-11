@@ -30,7 +30,7 @@ const Filters = () => {
   const handleSearch = () => {};
 
   return (
-    <div className={css.filtersContainer}>
+    <section className={css.filtersContainer}>
       <label className={css.label}>
         Car brand
         <SelectComponent options={brandsOptions} placeholder="Choose a brand" />
@@ -57,7 +57,7 @@ const Filters = () => {
       <button className={css.searchButton} onClick={handleSearch}>
         Search
       </button>
-    </div>
+    </section>
   );
 };
 
