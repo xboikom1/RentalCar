@@ -1,16 +1,12 @@
-import { useState } from "react";
 import css from "./CarListItem.module.css";
 
-const CarListItem = ({ car, onFavoriteToggle, onReadMore }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  const handleFavoriteClick = () => {
-    setIsFavorite(!isFavorite);
-    onFavoriteToggle(car.id);
-  };
-
+const CarListItem = ({ car, isFavorite = false, onFavoriteToggle, onReadMore }) => {
   const formatMileage = (mileage) => {
     return mileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  };
+
+  const handleFavoriteClick = () => {
+    onFavoriteToggle(car.id);
   };
 
   return (

@@ -1,0 +1,39 @@
+.loadMoreContainer {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 124px;
+    width: 100%;
+}
+
+.loadMoreButton {
+    padding: 12px 51px;
+    background: transparent;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 125%;
+    color: var(--main);
+    border: 1px solid var(--button);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 156px;
+    outline: none;
+}
+
+.loadMoreButton:hover,
+.loadMoreButton:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(52, 112, 255, 0.3);
+    border: 1px solid var(--button-hover);
+}
+
+.loadMoreButton:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(52, 112, 255, 0.3);
+}
+
+.loadMoreButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
