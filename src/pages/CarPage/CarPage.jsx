@@ -2,25 +2,12 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import clsx from "clsx";
 import { fetchCarById } from "../../redux/cars/operations";
-
 import css from "./CarPage.module.css";
 import { selectCarById } from "../../redux/cars/selectors";
 import { formatMileage } from "../../utils/formatMileage";
-
-const validationSchema = Yup.object({
-  name: Yup.string()
-    .min(2, "Name must be at least 2 characters")
-    .required("Name is required"),
-  email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
-  bookingDate: Yup.date()
-    .min(new Date(), "Booking date must be in the future")
-    .nullable(),
-  comment: Yup.string().max(500, "Comment must be less than 500 characters"),
-});
+import { initialValues, validationSchema } from "./bookingFormConfig";
 
 const CarPage = () => {
   const { id } = useParams();
@@ -28,6 +15,8 @@ const CarPage = () => {
   const car = useSelector(selectCarById);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     dispatch(fetchCarById(id));
   }, [dispatch, id]);
 
@@ -144,103 +133,94 @@ const CarPage = () => {
         </div>
       </div>
       <div className={css.bookingSection}>
-        <div className={css.bookingCard}>
-          <h2 className={css.bookingTitle}>Book your car now</h2>
-          <p className={css.bookingSubtitle}>
-            Stay connected. We are always ready to help you.
-          </p>
+        <h2 className={css.bookingTitle}>Book your car now</h2>
+        <p className={css.bookingSubtitle}>
+          Stay connected. We are always ready to help you.
+        </p>
 
-          <Formik
-            initialValues={{
-              name: "",
-              email: "",
-              bookingDate: "",
-              comment: "",
-            }}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
-          >
-            {({ isSubmitting, errors, touched }) => (
-              <Form className={css.bookingForm}>
-                <div className={css.fieldContainer}>
-                  <Field
-                    type="text"
-                    name="name"
-                    placeholder="Name*"
-                    className={`${css.input} ${
-                      errors.name && touched.name ? css.inputError : ""
-                    }`}
-                  />
-                  <ErrorMessage
-                    name="name"
-                    component="div"
-                    className={css.error}
-                  />
-                </div>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ isSubmitting, errors, touched }) => (
+            <Form className={css.bookingForm}>
+              <div className={css.fieldContainer}>
+                <Field
+                  type="text"
+                  name="name"
+                  placeholder="Name*"
+                  className={clsx(css.input, {
+                    [css.inputError]: errors.name && touched.name,
+                  })}
+                />
+                <ErrorMessage
+                  name="name"
+                  component="span"
+                  className={css.error}
+                />
+              </div>
 
-                <div className={css.fieldContainer}>
-                  <Field
-                    type="email"
-                    name="email"
-                    placeholder="Email*"
-                    className={`${css.input} ${
-                      errors.email && touched.email ? css.inputError : ""
-                    }`}
-                  />
-                  <ErrorMessage
-                    name="email"
-                    component="div"
-                    className={css.error}
-                  />
-                </div>
+              <div className={css.fieldContainer}>
+                <Field
+                  type="email"
+                  name="email"
+                  placeholder="Email*"
+                  className={clsx(css.input, {
+                    [css.inputError]: errors.email && touched.email,
+                  })}
+                />
+                <ErrorMessage
+                  name="email"
+                  component="span"
+                  className={css.error}
+                />
+              </div>
 
-                <div className={css.fieldContainer}>
-                  <Field
-                    type="date"
-                    name="bookingDate"
-                    placeholder="Booking date"
-                    className={`${css.input} ${
-                      errors.bookingDate && touched.bookingDate
-                        ? css.inputError
-                        : ""
-                    }`}
-                  />
-                  <ErrorMessage
-                    name="bookingDate"
-                    component="div"
-                    className={css.error}
-                  />
-                </div>
+              <div className={css.fieldContainer}>
+                <Field
+                  type="date"
+                  name="bookingDate"
+                  placeholder="Booking date"
+                  className={clsx(css.input, {
+                    [css.inputError]: errors.bookingDate && touched.bookingDate,
+                  })}
+                />
+                <ErrorMessage
+                  name="bookingDate"
+                  component="span"
+                  className={css.error}
+                />
+              </div>
 
-                <div className={css.fieldContainer}>
-                  <Field
-                    as="textarea"
-                    name="comment"
-                    placeholder="Comment"
-                    className={`${css.textarea} ${
-                      errors.comment && touched.comment ? css.inputError : ""
-                    }`}
-                  />
-                  <ErrorMessage
-                    name="comment"
-                    component="div"
-                    className={css.error}
-                  />
-                </div>
+              <div className={css.fieldContainer}>
+                <Field
+                  as="textarea"
+                  name="comment"
+                  placeholder="Comment"
+                  className={clsx(css.textarea, {
+                    [css.inputError]: errors.comment && touched.comment,
+                  })}
+                />
+                <ErrorMessage
+                  name="comment"
+                  component="span"
+                  className={css.error}
+                />
+              </div>
 
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`${css.submitButton} ${
-                    isSubmitting ? css.submitButtonDisabled : ""
-                  }`}
-                >
-                  {isSubmitting ? "Sending..." : "Send"}
-                </button>
-              </Form>
-            )}
-          </Formik>
-        </div>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={clsx(css.submitButton, {
+                  [css.submitButtonDisabled]: isSubmitting,
+                })}
+              >
+                {isSubmitting ? "Sending..." : "Send"}
+              </button>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );
