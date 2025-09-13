@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -8,11 +8,15 @@ import css from "./CarPage.module.css";
 import { selectCarById } from "../../redux/cars/selectors";
 import { formatMileage } from "../../utils/formatMileage";
 import { initialValues, validationSchema } from "./bookingFormConfig";
+import { DayPicker } from "react-day-picker";
+import "react-day-picker/dist/style.css";
 
 const CarPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const car = useSelector(selectCarById);
+  const [selected, setSelected] = useState();
+  const [showCalendar, setShowCalendar] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -21,15 +25,20 @@ const CarPage = () => {
   }, [dispatch, id]);
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    console.log("Booking data:", values);
+    const bookingData = {
+      ...values,
+      bookingDate: selected ? selected.toISOString().split("T")[0] : null,
+    };
+    console.log("Booking data:", bookingData);
     setTimeout(() => {
       alert("Booking submitted successfully!");
       resetForm();
+      setSelected();
       setSubmitting(false);
     }, 1000);
   };
 
-  if (!car) return <div className={css.loading}>Car not found</div>;
+  if (!car) return <span className={css.notFoundCar}>Car not found</span>;
 
   return (
     <div className={css.pageContainer}>
@@ -143,7 +152,7 @@ const CarPage = () => {
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ isSubmitting, errors, touched }) => (
+          {({ isSubmitting, errors, touched, setFieldValue }) => (
             <Form className={css.bookingForm}>
               <div className={css.fieldContainer}>
                 <Field
@@ -178,14 +187,38 @@ const CarPage = () => {
               </div>
 
               <div className={css.fieldContainer}>
-                <Field
-                  type="date"
-                  name="bookingDate"
-                  placeholder="Booking date"
-                  className={clsx(css.input, {
-                    [css.inputError]: errors.bookingDate && touched.bookingDate,
-                  })}
-                />
+                <div className={css.datePickerWrapper}>
+                  <Field
+                    type="text"
+                    name="bookingDate"
+                    placeholder="Booking date"
+                    value={selected ? selected.toLocaleDateString() : ""}
+                    onClick={() => setShowCalendar(!showCalendar)}
+                    readOnly
+                    className={clsx(css.input, css.dateInput, {
+                      [css.inputError]:
+                        errors.bookingDate && touched.bookingDate,
+                    })}
+                  />
+
+                  {showCalendar && (
+                    <div className={css.calendarDropdown}>
+                      <DayPicker
+                        animate
+                        mode="single"
+                        selected={selected}
+                        onSelect={(date) => {
+                          setSelected(date);
+                          setFieldValue(
+                            "bookingDate",
+                            date ? date.toISOString().split("T")[0] : ""
+                          );
+                          setShowCalendar(false);
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
                 <ErrorMessage
                   name="bookingDate"
                   component="span"
@@ -225,5 +258,4 @@ const CarPage = () => {
     </div>
   );
 };
-
 export default CarPage;
