@@ -5,7 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import clsx from "clsx";
 import { fetchCarById } from "../../redux/cars/operations";
 import css from "./CarPage.module.css";
-import { selectCarById } from "../../redux/cars/selectors";
+import { selectCarById, selectIsLoading } from "../../redux/cars/selectors";
 import { formatMileage } from "../../utils/formatMileage";
 import { initialValues, validationSchema } from "./bookingFormConfig";
 import { DayPicker } from "react-day-picker";
@@ -15,6 +15,7 @@ const CarPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const car = useSelector(selectCarById);
+  const isLoading = useSelector(selectIsLoading);
   const [selected, setSelected] = useState();
   const [showCalendar, setShowCalendar] = useState(false);
 
@@ -37,6 +38,8 @@ const CarPage = () => {
       setSubmitting(false);
     }, 1000);
   };
+
+  if (!car && isLoading) return <div className={css.loader}>Loading...</div>;
 
   if (!car) return <span className={css.notFoundCar}>Car not found</span>;
 

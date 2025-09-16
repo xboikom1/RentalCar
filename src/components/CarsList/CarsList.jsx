@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchCars } from "../../redux/cars/operations";
-import { selectCars } from "../../redux/cars/selectors";
+import { selectCars, selectError } from "../../redux/cars/selectors";
 import { selectFavorites } from "../../redux/favourites/selectors";
 import { toggleFavorite } from "../../redux/favourites/slice";
 import CarListItem from "../CarListItem/CarListItem";
@@ -15,7 +15,7 @@ const CarsList = () => {
   const favorites = useSelector(selectFavorites);
 
   useEffect(() => {
-    dispatch(fetchCars());
+    dispatch(fetchCars({}));
   }, [dispatch]);
 
   const handleFavoriteToggle = (carId) => {
@@ -25,6 +25,9 @@ const CarsList = () => {
   const handleReadMore = (car) => {
     navigate(`/cars/${car.id}`);
   };
+
+  const error = useSelector(selectError);
+  if (error) return <div className={css.error}>Error: {error}</div>;
 
   return (
     <section className={css.carsList}>
