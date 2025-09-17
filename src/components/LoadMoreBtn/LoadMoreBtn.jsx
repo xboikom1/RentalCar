@@ -7,6 +7,7 @@ import {
   selectIsLoading,
 } from "../../redux/cars/selectors";
 import { fetchCars } from "../../redux/cars/operations";
+import { selectFilters } from "../../redux/filters/selectors";
 
 const LoadMoreBtn = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const LoadMoreBtn = () => {
   const page = Number(useSelector(selectPage));
   const totalPages = Number(useSelector(selectTotalPages));
   const isLoading = useSelector(selectIsLoading);
+  const filters = useSelector(selectFilters);
   const isVisible = page < totalPages;
 
   useEffect(() => {
@@ -32,7 +34,7 @@ const LoadMoreBtn = () => {
   }, [page, isLoading]);
 
   const handleLoadMore = () => {
-    dispatch(fetchCars({ page: page + 1 }));
+    dispatch(fetchCars({ page: page + 1, filters }));
   };
 
   if (!isVisible) return null;

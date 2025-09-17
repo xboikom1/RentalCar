@@ -26,7 +26,6 @@ const slice = createSlice({
         if (action.payload.isAppend)
           state.cars = [...state.cars, ...action.payload.cars];
         else state.cars = action.payload.cars;
-        console.log("Updated cars state:", state.page);
       })
       .addCase(fetchCars.rejected, (state) => {
         state.isLoading = false;

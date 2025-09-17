@@ -89,7 +89,7 @@
 .price {
     font-weight: 500;
     font-size: 16px;
-    line-height: 125%;
+    line-height: 1.5;
     color: var(--main);
 }
 

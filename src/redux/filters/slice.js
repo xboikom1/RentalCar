@@ -7,39 +7,24 @@ const slice = createSlice({
     rentalPrice: "",
     minMileage: 0,
     maxMileage: 0,
-    loading: false,
-    error: null,
   },
   reducers: {
-    setBrand(state, action) {
-      state.brand = action.payload;
-    },
-    setRentalPrice(state, action) {
-      state.rentalPrice = action.payload;
-    },
-    setMinMileage(state, action) {
-      state.minMileage = action.payload;
-    },
-    setMaxMileage(state, action) {
-      state.maxMileage = action.payload;
+    setFilters(state, action) {
+      const { brand, rentalPrice, minMileage, maxMileage } = action.payload;
+      state.brand = brand;
+      state.rentalPrice = rentalPrice;
+      state.minMileage = minMileage;
+      state.maxMileage = maxMileage;
     },
     resetFilters(state) {
       state.brand = "";
       state.rentalPrice = "";
       state.minMileage = 0;
       state.maxMileage = 0;
-      state.loading = false;
-      state.error = null;
     },
   },
 });
 
-export const {
-  setBrand,
-  setRentalPrice,
-  setMinMileage,
-  setMaxMileage,
-  resetFilters,
-} = slice.actions;
+export const { setFilters, resetFilters } = slice.actions;
 
 export default slice.reducer;
