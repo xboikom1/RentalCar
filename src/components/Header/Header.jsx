@@ -25,6 +25,7 @@ const Header = () => {
           className={({ isActive }) =>
             clsx(css.link, { [css.active]: isActive })
           }
+          end
         >
           Catalog
         </NavLink>

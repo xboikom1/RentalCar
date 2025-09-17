@@ -1,10 +1,12 @@
+import { formatMileage } from "../../utils/formatMileage";
 import css from "./CarListItem.module.css";
 
-const CarListItem = ({ car, isFavorite = false, onFavoriteToggle, onReadMore }) => {
-  const formatMileage = (mileage) => {
-    return mileage.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-  };
-
+const CarListItem = ({
+  car,
+  isFavorite = false,
+  onFavoriteToggle,
+  onReadMore,
+}) => {
   const handleFavoriteClick = () => {
     onFavoriteToggle(car.id);
   };

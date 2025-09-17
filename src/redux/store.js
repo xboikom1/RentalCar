@@ -8,7 +8,7 @@ import filtersReducer from "./filters/slice";
 import favouritesReducer from "./favourites/slice";
 
 const persistConfig = {
-  key: "root",
+  key: "favourite-cars",
   storage,
   whitelist: ["favourites"],
 };
