@@ -7,6 +7,7 @@ import { selectFavorites } from "../../redux/favourites/selectors";
 import { toggleFavorite } from "../../redux/favourites/slice";
 import CarListItem from "../CarListItem/CarListItem";
 import css from "./CarsList.module.css";
+import ErrorComponent from "../ErrorComponent/ErrorComponent";
 
 const CarsList = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const CarsList = () => {
   };
 
   const error = useSelector(selectError);
-  if (error) return <div className={css.error}>Error: {error}</div>;
+  if (error) return <ErrorComponent>{error}</ErrorComponent>;
 
   return (
     <section className={css.carsList}>
