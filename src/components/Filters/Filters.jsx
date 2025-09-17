@@ -5,12 +5,7 @@ import { selectBrands } from "../../redux/brands/selectors";
 import { useEffect } from "react";
 import { fetchBrands } from "../../redux/brands/operations";
 import SelectComponent from "../SelectComponent/SelectComponent";
-import {
-  setBrand,
-  setRentalPrice,
-  setMinMileage,
-  setMaxMileage,
-} from "../../redux/filters/slice";
+import { setFilters } from "../../redux/filters/slice";
 import { fetchCars } from "../../redux/cars/operations";
 
 const Filters = () => {
@@ -64,12 +59,8 @@ const Filters = () => {
       maxMileage: parseInt(maxMileage) || 0,
     };
 
-    dispatch(setBrand(filters.brand));
-    dispatch(setRentalPrice(filters.rentalPrice));
-    dispatch(setMinMileage(filters.minMileage));
-    dispatch(setMaxMileage(filters.maxMileage));
-
-    dispatch(fetchCars(filters));
+    dispatch(setFilters(filters));
+    dispatch(fetchCars({ filters }));
   };
 
   return (
