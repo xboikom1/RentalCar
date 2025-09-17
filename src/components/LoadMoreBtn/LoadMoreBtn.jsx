@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useRef, useEffect } from "react";
 import css from "./LoadMoreBtn.module.css";
 import {
   selectPage,
@@ -9,10 +10,26 @@ import { fetchCars } from "../../redux/cars/operations";
 
 const LoadMoreBtn = () => {
   const dispatch = useDispatch();
+  const buttonRef = useRef(null);
+  const prevPageRef = useRef(null);
   const page = Number(useSelector(selectPage));
   const totalPages = Number(useSelector(selectTotalPages));
   const isLoading = useSelector(selectIsLoading);
   const isVisible = page < totalPages;
+
+  useEffect(() => {
+    if (
+      prevPageRef.current !== null &&
+      prevPageRef.current < page &&
+      !isLoading
+    ) {
+      window.scrollTo({
+        top: window.scrollY + 600,
+        behavior: "smooth",
+      });
+    }
+    prevPageRef.current = page;
+  }, [page, isLoading]);
 
   const handleLoadMore = () => {
     dispatch(fetchCars({ page: page + 1 }));
@@ -21,7 +38,7 @@ const LoadMoreBtn = () => {
   if (!isVisible) return null;
 
   return (
-    <div className={css.loadMoreContainer}>
+    <div className={css.loadMoreContainer} ref={buttonRef}>
       <button
         className={css.loadMoreButton}
         onClick={handleLoadMore}
