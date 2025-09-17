@@ -10,7 +10,6 @@ import { formatMileage } from "../../utils/formatMileage";
 import { initialValues, validationSchema } from "./bookingFormConfig";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
-import Loader from "../../components/Loader/Loader";
 import ErrorComponent from "../../components/ErrorComponent/ErrorComponent";
 
 const CarPage = () => {
@@ -41,9 +40,8 @@ const CarPage = () => {
     }, 1000);
   };
 
-  if (!car && isLoading) return <Loader />;
-
-  if (!car) return <ErrorComponent>Car not found</ErrorComponent>;
+  if (!car && !isLoading) return <ErrorComponent>Car not found</ErrorComponent>;
+  if (!car) return <div></div>;
 
   return (
     <div className={css.pageContainer}>
