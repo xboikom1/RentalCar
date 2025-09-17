@@ -5,6 +5,7 @@ import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { initialValues, validationSchema } from "./bookingFormConfig";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const BookingForm = () => {
   const [showCalendar, setShowCalendar] = useState(false);
@@ -13,15 +14,15 @@ const BookingForm = () => {
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
     const bookingData = {
       ...values,
-      bookingDate: selected ? selected.toISOString().split("T")[0] : null,
+      bookingDate: selected.toISOString().split("T")[0],
     };
-    console.log("Booking Data:", bookingData);
+
     setTimeout(() => {
-      alert("Booking submitted successfully!");
       resetForm();
       setSelected();
       setSubmitting(false);
-    }, 1000);
+      toast.success("Successfully sent!");
+    }, 500);
   };
 
   return (
@@ -89,7 +90,6 @@ const BookingForm = () => {
                     <DayPicker
                       animate
                       mode="single"
-                      selected={selected}
                       onSelect={(date) => {
                         setSelected(date);
                         setFieldValue(
