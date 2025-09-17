@@ -9,7 +9,10 @@ export const validationSchema = Yup.object({
     .email("Invalid email address")
     .required("Email is required"),
   bookingDate: Yup.date()
-    .min(new Date(), "Booking date must be in the future")
+    .min(
+      new Date(new Date().setHours(0, 0, 0, 0)),
+      "Booking date must be in the future"
+    )
     .typeError("Invalid date format")
     .required("Booking date is required"),
   comment: Yup.string().max(500, "Comment must be less than 500 characters"),

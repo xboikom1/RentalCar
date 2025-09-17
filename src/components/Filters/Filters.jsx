@@ -4,9 +4,9 @@ import css from "./Filters.module.css";
 import { selectBrands } from "../../redux/brands/selectors";
 import { useEffect } from "react";
 import { fetchBrands } from "../../redux/brands/operations";
-import SelectComponent from "../SelectComponent/SelectComponent";
 import { setFilters } from "../../redux/filters/slice";
 import { fetchCars } from "../../redux/cars/operations";
+import SelectComponent from "./SelectComponent";
 
 const Filters = () => {
   const dispatch = useDispatch();
@@ -44,14 +44,18 @@ const Filters = () => {
   };
 
   const handleMinMileageChange = (e) => {
-    setMinMileageLocal(e.target.value);
+    const value = e.target.value.replace(/\D/g, "");
+    setMinMileageLocal(value);
   };
 
   const handleMaxMileageChange = (e) => {
-    setMaxMileageLocal(e.target.value);
+    const value = e.target.value.replace(/\D/g, "");
+    setMaxMileageLocal(value);
   };
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault();
+
     const filters = {
       brand: selectedBrand?.value || "",
       rentalPrice: selectedPrice?.value || "",
@@ -64,7 +68,7 @@ const Filters = () => {
   };
 
   return (
-    <section className={css.filtersContainer}>
+    <form className={css.filtersContainer}>
       <label className={css.label}>
         Car brand
         <SelectComponent
@@ -82,6 +86,7 @@ const Filters = () => {
           placeholder="Choose a price"
           value={selectedPrice}
           onChange={handlePriceChange}
+          formatSelectedValue={(value) => `To $${value}`}
         />
       </label>
 
@@ -89,17 +94,17 @@ const Filters = () => {
         <label className={css.label}>Car mileage / km</label>
         <div className={css.inputsGroup}>
           <input
-            type="number"
+            type="text"
             placeholder="From"
             className={css.input}
-            value={minMileage}
+            value={`From ${minMileage}`}
             onChange={handleMinMileageChange}
           />
           <input
-            type="number"
+            type="text"
             placeholder="To"
             className={css.input}
-            value={maxMileage}
+            value={`To ${maxMileage}`}
             onChange={handleMaxMileageChange}
           />
         </div>
@@ -108,7 +113,7 @@ const Filters = () => {
       <button className={css.searchButton} onClick={handleSearch}>
         Search
       </button>
-    </section>
+    </form>
   );
 };
 

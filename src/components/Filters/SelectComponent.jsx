@@ -1,6 +1,12 @@
 import Select from "react-select";
 
-const SelectComponent = ({ options, placeholder, value, onChange }) => {
+const SelectComponent = ({
+  options,
+  placeholder,
+  value,
+  onChange,
+  formatSelectedValue,
+}) => {
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
@@ -103,6 +109,14 @@ const SelectComponent = ({ options, placeholder, value, onChange }) => {
       </svg>
     </div>
   );
+
+  const formatOptionLabel = (option, { context }) => {
+    if (context === "value" && formatSelectedValue)
+      return formatSelectedValue(option.label);
+
+    return option.label;
+  };
+
   return (
     <Select
       options={options}
@@ -111,6 +125,7 @@ const SelectComponent = ({ options, placeholder, value, onChange }) => {
       onChange={onChange}
       styles={customStyles}
       components={{ DropdownIndicator }}
+      formatOptionLabel={formatOptionLabel}
       isClearable
     />
   );
