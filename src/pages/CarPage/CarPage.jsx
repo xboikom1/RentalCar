@@ -10,6 +10,8 @@ import { formatMileage } from "../../utils/formatMileage";
 import { initialValues, validationSchema } from "./bookingFormConfig";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
+import Loader from "../../components/Loader/Loader";
+import ErrorComponent from "../../components/ErrorComponent/ErrorComponent";
 
 const CarPage = () => {
   const { id } = useParams();
@@ -30,7 +32,7 @@ const CarPage = () => {
       ...values,
       bookingDate: selected ? selected.toISOString().split("T")[0] : null,
     };
-    console.log("Booking data:", bookingData);
+    console.log("Booking Data:", bookingData);
     setTimeout(() => {
       alert("Booking submitted successfully!");
       resetForm();
@@ -39,9 +41,9 @@ const CarPage = () => {
     }, 1000);
   };
 
-  if (!car && isLoading) return <div className={css.loader}>Loading...</div>;
+  if (!car && isLoading) return <Loader />;
 
-  if (!car) return <span className={css.notFoundCar}>Car not found</span>;
+  if (!car) return <ErrorComponent>Car not found</ErrorComponent>;
 
   return (
     <div className={css.pageContainer}>
