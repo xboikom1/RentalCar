@@ -17,12 +17,10 @@ const BookingForm = () => {
       bookingDate: selected.toISOString().split("T")[0],
     };
 
-    setTimeout(() => {
-      resetForm();
-      setSelected();
-      setSubmitting(false);
-      toast.success("Successfully sent!");
-    }, 500);
+    resetForm();
+    setSelected();
+    setSubmitting(false);
+    toast.success("Successfully sent!");
   };
 
   return (
