@@ -7,6 +7,7 @@ import { fetchBrands } from "../../redux/brands/operations";
 import { setFilters } from "../../redux/filters/slice";
 import { fetchCars } from "../../redux/cars/operations";
 import SelectComponent from "./SelectComponent";
+import { selectIsLoading } from "../../redux/cars/selectors";
 
 const Filters = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const Filters = () => {
     dispatch(fetchBrands());
   }, [dispatch]);
 
+  const isLoading = useSelector(selectIsLoading);
   const brands = useSelector(selectBrands);
   const brandsOptions = brands.map((brand) => ({
     value: brand,
@@ -110,8 +112,12 @@ const Filters = () => {
         </div>
       </div>
 
-      <button className={css.searchButton} onClick={handleSearch}>
-        Search
+      <button
+        className={css.searchButton}
+        onClick={handleSearch}
+        disabled={isLoading}
+      >
+        {isLoading ? "Searching..." : "Search"}
       </button>
     </form>
   );

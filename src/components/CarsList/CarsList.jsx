@@ -2,24 +2,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchCars } from "../../redux/cars/operations";
-import {
-  selectCars,
-  selectError,
-  selectIsLoading,
-} from "../../redux/cars/selectors";
+import { selectCars, selectError } from "../../redux/cars/selectors";
 import { selectFavorites } from "../../redux/favourites/selectors";
 import { toggleFavorite } from "../../redux/favourites/slice";
 import CarListItem from "../CarListItem/CarListItem";
 import css from "./CarsList.module.css";
 import ErrorComponent from "../ErrorComponent/ErrorComponent";
-import Loader from "../Loader/Loader";
 
 const CarsList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cars = useSelector(selectCars);
   const favorites = useSelector(selectFavorites);
-  const isLoading = useSelector(selectIsLoading);
 
   useEffect(() => {
     dispatch(fetchCars({}));
@@ -37,23 +31,17 @@ const CarsList = () => {
   if (error) return <ErrorComponent>{error}</ErrorComponent>;
 
   return (
-    <>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <ul className={css.carsList}>
-          {cars.map((car) => (
-            <CarListItem
-              key={car.id}
-              car={car}
-              isFavorite={favorites.includes(car.id)}
-              onFavoriteToggle={handleFavoriteToggle}
-              onReadMore={handleReadMore}
-            />
-          ))}
-        </ul>
-      )}
-    </>
+    <ul className={css.carsList}>
+      {cars.map((car) => (
+        <CarListItem
+          key={car.id}
+          car={car}
+          isFavorite={favorites.includes(car.id)}
+          onFavoriteToggle={handleFavoriteToggle}
+          onReadMore={handleReadMore}
+        />
+      ))}
+    </ul>
   );
 };
 

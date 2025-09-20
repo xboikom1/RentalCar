@@ -130,7 +130,7 @@
 
 .calendarDropdown {
     position: absolute;
-    top: -200%;
+    top: -400%;
     right: -62%;
     background: white;
     border: 1px solid var(--gray-light);
@@ -140,4 +140,33 @@
     padding: 16px;
     margin-top: 4px;
     width: 348px;
+}
+
+.calendarButtonContainer {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.calendarButton {
+    padding: 8px 16px;
+    border: 1px solid var(--gray-light);
+    border-radius: 8px;
+    background: white;
+    color: var(--main);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.calendarButton:hover {
+    background: var(--inputs);
+    border-color: var(--button);
+}
+
+.calendarButton:active {
+    transform: translateY(1px);
 }

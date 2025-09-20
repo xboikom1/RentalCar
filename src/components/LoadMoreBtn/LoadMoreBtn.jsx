@@ -18,7 +18,7 @@ const LoadMoreBtn = () => {
   const totalPages = Number(useSelector(selectTotalPages));
   const isLoading = useSelector(selectIsLoading);
   const filters = useSelector(selectFilters);
-  const isVisible = page < totalPages && page !== 1;
+  const isVisible = page < totalPages;
 
   useEffect(() => {
     if (
@@ -42,7 +42,7 @@ const LoadMoreBtn = () => {
 
   return (
     <>
-      {isLoading && page > 1 ? (
+      {isLoading ? (
         <Loader />
       ) : (
         <div className={css.loadMoreContainer} ref={buttonRef}>
