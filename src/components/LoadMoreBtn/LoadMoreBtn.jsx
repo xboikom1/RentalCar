@@ -8,6 +8,7 @@ import {
 } from "../../redux/cars/selectors";
 import { fetchCars } from "../../redux/cars/operations";
 import { selectFilters } from "../../redux/filters/selectors";
+import Loader from "../Loader/Loader";
 
 const LoadMoreBtn = () => {
   const dispatch = useDispatch();
@@ -40,15 +41,21 @@ const LoadMoreBtn = () => {
   if (!isVisible) return null;
 
   return (
-    <div className={css.loadMoreContainer} ref={buttonRef}>
-      <button
-        className={css.loadMoreButton}
-        onClick={handleLoadMore}
-        disabled={isLoading}
-      >
-        {isLoading ? "Loading..." : "Load more"}
-      </button>
-    </div>
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className={css.loadMoreContainer} ref={buttonRef}>
+          <button
+            className={css.loadMoreButton}
+            onClick={handleLoadMore}
+            disabled={isLoading}
+          >
+            Load more
+          </button>
+        </div>
+      )}
+    </>
   );
 };
 

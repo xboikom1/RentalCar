@@ -31,7 +31,7 @@ const CarsList = () => {
   if (error) return <ErrorComponent>{error}</ErrorComponent>;
 
   return (
-    <section className={css.carsList}>
+    <ul className={css.carsList}>
       {cars.map((car) => (
         <CarListItem
           key={car.id}
@@ -41,7 +41,7 @@ const CarsList = () => {
           onReadMore={handleReadMore}
         />
       ))}
-    </section>
+    </ul>
   );
 };
 

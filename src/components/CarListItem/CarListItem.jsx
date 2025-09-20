@@ -12,7 +12,7 @@ const CarListItem = ({
   };
 
   return (
-    <div className={css.carCard}>
+    <li className={css.carCard}>
       <div className={css.imageContainer}>
         <img
           src={car.img}
@@ -40,27 +40,28 @@ const CarListItem = ({
       <div className={css.carInfo}>
         <div className={css.header}>
           <h3 className={css.title}>
-            <span>{car.brand} </span>
-            <span className={css.model}>{car.model}</span>,
-            <span> {car.year}</span>
+            <p>
+              {car.brand} <span className={css.model}>{car.model}</span>,{" "}
+              {car.year}
+            </p>
           </h3>
           <span className={css.price}>${car.rentalPrice}</span>
         </div>
 
         <div className={css.carDetails}>
-          <span className={css.detail}>
+          <p className={css.detail}>
             {car.address.split(", ").slice(-2).join(" | ")}
-          </span>
-          <span className={css.detail}>{car.rentalCompany}</span>
-          <span className={css.detail}>{car.type}</span>
-          <span className={css.detail}>{formatMileage(car.mileage)} km</span>
+          </p>
+          <p className={css.detail}>{car.rentalCompany}</p>
+          <p className={css.detail}>{car.type}</p>
+          <p className={css.detail}>{formatMileage(car.mileage)} km</p>
         </div>
       </div>
 
       <button className={css.readMoreButton} onClick={() => onReadMore(car)}>
         Read more
       </button>
-    </div>
+    </li>
   );
 };
 

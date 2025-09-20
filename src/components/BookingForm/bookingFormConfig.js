@@ -8,10 +8,6 @@ export const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
-  bookingDate: Yup.date()
-    .min(new Date(), "Booking date must be in the future")
-    .typeError("Invalid date format")
-    .required("Booking date is required"),
   comment: Yup.string().max(500, "Comment must be less than 500 characters"),
 });
 
@@ -20,4 +16,12 @@ export const initialValues = {
   email: "",
   bookingDate: "",
   comment: "",
+};
+
+export const formatDateRange = (range) => {
+  if (!range) return "";
+  if (range.from && range.to) {
+    return `${range.from.toLocaleDateString()} - ${range.to.toLocaleDateString()}`;
+  }
+  return "";
 };

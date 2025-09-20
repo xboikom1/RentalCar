@@ -62,7 +62,7 @@
 }
 
 .searchButton {
-    padding: 12px 51px;
+    padding: 12px;
     background-color: var(--button);
     color: white;
     border: none;
@@ -71,14 +71,26 @@
     font-size: 16px;
     line-height: 125%;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.2s ease;
     min-width: 156px;
     box-sizing: border-box;
     align-self: flex-end;
     outline: none;
+    transform: scale(1);
 }
 
 .searchButton:hover,
 .searchButton:focus {
     background-color: var(--button-hover);
+}
+
+.searchButton:active {
+    transform: scale(0.98);
+    background-color: var(--button-hover);
+}
+
+.searchButton:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: scale(1);
 }

@@ -3,26 +3,38 @@ import clsx from "clsx";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
-import { initialValues, validationSchema } from "./bookingFormConfig";
-import { useState } from "react";
+import {
+  formatDateRange,
+  initialValues,
+  validationSchema,
+} from "./bookingFormConfig";
+import { useState, useRef, useEffect } from "react";
 import toast from "react-hot-toast";
 
 const BookingForm = () => {
   const [showCalendar, setShowCalendar] = useState(false);
   const [selected, setSelected] = useState();
+  const calendarRef = useRef(null);
 
-  const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    const bookingData = {
-      ...values,
-      bookingDate: selected.toISOString().split("T")[0],
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (calendarRef.current && !calendarRef.current.contains(event.target))
+        setShowCalendar(false);
     };
 
-    setTimeout(() => {
-      resetForm();
-      setSelected();
-      setSubmitting(false);
-      toast.success("Successfully sent!");
-    }, 500);
+    if (showCalendar)
+      document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showCalendar]);
+
+  const handleSubmit = (values, { setSubmitting, resetForm }) => {
+    resetForm();
+    setSelected();
+    setSubmitting(false);
+    toast.success("Successfully sent!");
   };
 
   return (
@@ -72,12 +84,12 @@ const BookingForm = () => {
             </div>
 
             <div className={css.fieldContainer}>
-              <div className={css.datePickerWrapper}>
+              <div className={css.datePickerWrapper} ref={calendarRef}>
                 <Field
                   type="text"
                   name="bookingDate"
                   placeholder="Booking date"
-                  value={selected ? selected.toLocaleDateString() : ""}
+                  value={formatDateRange(selected)}
                   onClick={() => setShowCalendar(!showCalendar)}
                   readOnly
                   className={clsx(css.input, css.dateInput, {
@@ -89,24 +101,40 @@ const BookingForm = () => {
                   <div className={css.calendarDropdown}>
                     <DayPicker
                       animate
-                      mode="single"
-                      onSelect={(date) => {
-                        setSelected(date);
-                        setFieldValue(
-                          "bookingDate",
-                          date ? date.toISOString().split("T")[0] : ""
-                        );
-                        setShowCalendar(false);
+                      mode="range"
+                      selected={selected}
+                      onSelect={(range) => {
+                        setSelected(range);
+                        const dateValue = `${range.from.toLocaleDateString(
+                          "sv-SE"
+                        )} - ${range.to.toLocaleDateString("sv-SE")}`;
+
+                        setFieldValue("bookingDate", dateValue);
                       }}
+                      disabled={{ before: new Date() }}
                     />
+                    <div className={css.calendarButtonContainer}>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelected(undefined);
+                          setFieldValue("bookingDate", "");
+                        }}
+                        className={css.calendarButton}
+                      >
+                        Reset
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setShowCalendar(false)}
+                        className={css.calendarButton}
+                      >
+                        Close
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
-              <ErrorMessage
-                name="bookingDate"
-                component="span"
-                className={css.error}
-              />
             </div>
 
             <div className={css.fieldContainer}>

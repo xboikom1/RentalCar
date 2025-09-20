@@ -18,18 +18,18 @@ const slice = createSlice({
         state.error = null;
       })
       .addCase(fetchCars.fulfilled, (state, action) => {
-        state.isLoading = false;
         state.page = action.payload.page;
         state.totalPages = action.payload.totalPages;
-        state.error = null;
 
         if (action.payload.isAppend)
           state.cars = [...state.cars, ...action.payload.cars];
         else state.cars = action.payload.cars;
+        state.isLoading = false;
+        state.error = null;
       })
       .addCase(fetchCars.rejected, (state) => {
-        state.isLoading = false;
         state.error = "Failed to fetch cars";
+        state.isLoading = false;
       })
       .addCase(fetchCarById.pending, (state) => {
         state.isLoading = true;
@@ -37,12 +37,12 @@ const slice = createSlice({
       })
       .addCase(fetchCarById.fulfilled, (state, action) => {
         state.carById = action.payload;
-        state.isLoading = false;
         state.error = null;
+        state.isLoading = false;
       })
       .addCase(fetchCarById.rejected, (state) => {
-        state.isLoading = false;
         state.error = "Failed to fetch car details";
+        state.isLoading = false;
       });
   },
 });
