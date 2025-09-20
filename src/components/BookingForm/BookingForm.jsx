@@ -3,13 +3,10 @@ import clsx from "clsx";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
-import {
-  formatDateRange,
-  initialValues,
-  validationSchema,
-} from "./bookingFormConfig";
+import { initialValues, validationSchema } from "./bookingFormConfig";
 import { useState, useRef, useEffect } from "react";
 import toast from "react-hot-toast";
+import { formatDateRange } from "../../utils/formatMileage";
 
 const BookingForm = () => {
   const [showCalendar, setShowCalendar] = useState(false);

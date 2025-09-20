@@ -5,6 +5,7 @@
 .vscode
 .DS_Store
 .idea
+package-lock.json
 
 # pull requests list
 pullrequests-list.txt
