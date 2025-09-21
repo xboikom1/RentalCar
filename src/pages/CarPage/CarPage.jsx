@@ -8,6 +8,7 @@ import { selectCarById, selectIsLoading } from "../../redux/cars/selectors";
 import { formatMileage } from "../../utils/formatMileage";
 import ErrorComponent from "../../components/ErrorComponent/ErrorComponent";
 import BookingForm from "../../components/BookingForm/BookingForm";
+import Loader from "../../components/Loader/Loader";
 
 const CarPage = () => {
   const { id } = useParams();
@@ -23,6 +24,7 @@ const CarPage = () => {
 
   if (!car && !isLoading) return <ErrorComponent>Car not found</ErrorComponent>;
   if (!car) return <></>;
+  if (isLoading) return <Loader />;
 
   return (
     <div className={css.pageContainer}>
