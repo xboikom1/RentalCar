@@ -46,9 +46,17 @@ A web application for car rentals. Users can search, filter, view details, and b
 
 - React
 - Redux
-- JavaScript
-- CSS
-- HTML
+- Vite
+- CSS Modules
+- Formik
+- Yup
+- Axios
+- Redux Persist
+- React Hot Toast
+- React Select
+- React Day Picker
+- SVG Sprite
+- Vercel
 
 ## Author
 
