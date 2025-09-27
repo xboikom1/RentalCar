@@ -1,13 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import css from "./Filters.module.css";
-import { selectBrands } from "../../redux/brands/selectors";
 import { useEffect } from "react";
-import { fetchBrands } from "../../redux/brands/operations";
 import { setFilters } from "../../redux/filters/slice";
 import { fetchCars } from "../../redux/cars/operations";
 import SelectComponent from "./SelectComponent";
 import { selectIsLoading } from "../../redux/cars/selectors";
+import axios from "axios";
 
 const Filters = () => {
   const dispatch = useDispatch();
@@ -16,13 +15,21 @@ const Filters = () => {
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [minMileage, setMinMileageLocal] = useState("");
   const [maxMileage, setMaxMileageLocal] = useState("");
+  const [brands, setBrands] = useState([]);
 
   useEffect(() => {
-    dispatch(fetchBrands());
-  }, [dispatch]);
+    const fetchBrands = async () => {
+      try {
+        const response = await axios.get("/brands");
+        setBrands(response.data);
+      } catch (error) {
+        console.error("Error fetching brands:", error);
+      }
+    };
+    fetchBrands();
+  }, []);
 
   const isLoading = useSelector(selectIsLoading);
-  const brands = useSelector(selectBrands);
   const brandsOptions = brands.map((brand) => ({
     value: brand,
     label: brand,
