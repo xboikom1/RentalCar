@@ -7,6 +7,7 @@ import { fetchCars } from "../../redux/cars/operations";
 import SelectComponent from "./SelectComponent";
 import { selectIsLoading } from "../../redux/cars/selectors";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const Filters = () => {
   const dispatch = useDispatch();
@@ -65,11 +66,18 @@ const Filters = () => {
   const handleSearch = (e) => {
     e.preventDefault();
 
+    const minMileageNum = parseInt(minMileage) || 0;
+    const maxMileageNum = parseInt(maxMileage) || 0;
+
+    if (maxMileageNum > 0 && minMileageNum > maxMileageNum) {
+      toast.error("Min mileage cannot be greater than max mileage");
+      return;
+    }
     const filters = {
       brand: selectedBrand?.value || "",
       rentalPrice: selectedPrice?.value || "",
-      minMileage: parseInt(minMileage) || 0,
-      maxMileage: parseInt(maxMileage) || 0,
+      minMileage: minMileageNum,
+      maxMileage: maxMileageNum,
     };
 
     dispatch(setFilters(filters));
