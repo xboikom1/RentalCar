@@ -10,21 +10,6 @@ A web application for car rentals. Users can search, filter, view details, and b
 - Booking interface
 - Error handling for invalid filters and requests
 
-## Installation
-
-1. Clone the repository:
-   ```
-   git clone https://github.com/xboikom1/RentalCar.git
-   ```
-2. Enter the project directory:
-   ```
-   cd RentalCar
-   ```
-3. Install the dependencies:
-   ```
-   npm install
-   ```
-
 ### Basic workflow
 
 - Select car brand, price, and mileage filters
@@ -57,8 +42,3 @@ A web application for car rentals. Users can search, filter, view details, and b
 - React Day Picker
 - SVG Sprite
 - Vercel
-
-## Author
-
-- xboikom1  
-- [GitHub profile](https://github.com/xboikom1)
